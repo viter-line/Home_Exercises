@@ -6,5 +6,5 @@ a = list(a)
 print(type(a))
 print(a)
 for i in a:
-    if i % 5 == 0:
+    if (i % 5 == 0):
         print("Displaying numbers divisible by 5:")
