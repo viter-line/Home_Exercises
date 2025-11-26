@@ -2,10 +2,18 @@
 # Write a Python code to remove characters from a string from 0 to n and return a new string.
 #Note: n must be less than the length of the string.
 
-a = input()
-n = int(input("Enter N: "))
+def remove_chars(words, n):
+    x = words[n:]
+    return x
 
-a = list(a)
+print(remove_chars("ПРИВІТТИИИИК",4))
+print(remove_chars("trtatatatata",2))
+print(remove_chars("123456789",5))
 
-for i in a[n::]:
-    print(i)
+# a = input()
+# n = int(input("Enter N: "))
+#
+# a = list(a)
+#
+# for i in a[n::]:
+#     print(i)
