@@ -5,7 +5,7 @@
 # 4 4 4 4
 # 5 5 5 5 5
 
-a = range(5)
-for x in a:
-    x =+ x
-    print(range(x))
+for x in range(10):
+    for y in range(x):
+        print(x, end="")
+    print("\n")

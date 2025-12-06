@@ -2,7 +2,7 @@
 
 a = int(input("Carrent namber:  "))
 b = a - 1
-print(a + b
+print(a + b)
 
 # a = int(input("Введіть діапазон:"))
 # a = range(a)
