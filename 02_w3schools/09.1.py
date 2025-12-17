@@ -1,4 +1,0 @@
-# 9. Python Booleans
-# Check if 10 is greater than 5.
-
-print(10 > 5)
