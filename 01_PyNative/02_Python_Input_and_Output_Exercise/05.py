@@ -1,9 +1,8 @@
-class Person:
-  def __init__(self, name, age):
-    self.name = name
-    self.age = age
+# Exercise 5: Accept a list of 5 float numbers as an input from the user
 
-p1 = Person("Emil", 36)
+numbers = []
 
-print(p1.name)
-print(p1.age)
+for x in range(5):
+    print(input("Enter your num: "))
+    numbers.append(x)
+    print(numbers)
