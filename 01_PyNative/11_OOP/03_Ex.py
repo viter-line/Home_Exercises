@@ -3,11 +3,9 @@
 
 
 class Vehicle:
-    def __init__(self, name, max_speed, mileage):
-        self.name = name
-        self.max_speed = max_speed
-        self.mileage = mileage
+    def __init__(self):
+        pass
 
-VolVoX = Vehicle(XVers, 310, 200000)
-
-print(VolVoX.name, VolVoX.max_speed, VolVoX.mileage)
+class Bus(Vehicle):
+    def __init__(self):
+        super().__init__(self)
