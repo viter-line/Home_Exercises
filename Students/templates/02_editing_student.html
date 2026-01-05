@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+	<meta charset="UTF-8">
+	<title> Форма редагування даних студента </title>
+	<meta name="description"
+	value="" />
+	<script   src="https://code.jquery.com/jquery-3.2.1.js"
+	integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+	crossorigin="anonymous"></script>
+
+	    <!--Include style--->
+	    <!-- Latest compiled and minified CSS -->
+
+
+	    <link rel="stylesheet"     href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	    <!-- Optional theme -->
+	    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+	    <!-- Latest compiled and minified JavaScript -->
+	    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	    <style type="text/css"> .col-xs-12, .col-xs-8, .col-xs-4 {border: 0px solid brown;}</style>
+
+	    <!--Include My_Style-->
+	    <link rel="stylesheet" href="">
+
+
+	  </head>
+	  <body>
+	  	
+	  	<div class="col-xs-12">
+	  		<p> <B> <h2> Форма редагування даних студента </h2> </B> </p>
+	  	</div>
+	  	<div class="col-xs-8">
+	  		<table>
+	  			<tbody>
+					<form method="post" action="/add_student">
+					<!-- <tr>
+	  					<th valign="middle" width="35%">№ п/п</th>
+	  					<th valign="middle" class="table"><p><input type="text" name=""></p></th>
+	  				</tr> -->
+	  				<tr>
+	  					<th valign="middle" width="35%">Прізвище:*</th>
+	  					<th valign="middle" class="table"><p><input type="text" name="last_name"></p></th>
+	  				</tr>
+	  				<tr>
+	  					<th>Ім'я:*</th>
+	  					<th><p><input type="text" name="first_name"></p></th>
+	  				</tr>
+	  				<!-- <tr>
+	  					<th>Дата народження:</th>
+	  					<th><p><input type="text" name="birthdate"></p></th>
+	  				</tr> -->
+	  				<tr>
+	  					<th align="left" valign="middle">Команда: *</th>
+						<th>
+	  					<!-- <th align="left" valign="middle"><input type="text" name="team_numb"/> -->
+	  						<div>
+	  							<select name="team_numb" required>
+	  								<option value="1"> команда 1 </option>
+	  								<option value="2"> команда 2 </option>
+	  								<option value="3"> команда 3 </option>
+	  							</select>
+	  							<!-- <h1></h1> -->
+	  						</div>
+	  					</th>
+	  				</tr>
+	  				<tr>
+	  					<th><th>
+	  						<div class="row">
+	  							<div class="col-xs-12">
+	  								<ul class="nav nav-tabs" role="tablist">
+	  									<button type="submit">Зберегти</button>
+	  									<button type="reset">Скасувати</button>
+	  								</ul>
+	  							</div>
+	  						</th></th>
+	  					</tr>
+						</form>
+	  				</tbody>
+	  			</table>
+	  		</div>
+	  	</body>
+	  	</html>
