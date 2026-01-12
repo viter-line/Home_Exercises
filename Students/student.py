@@ -1,4 +1,5 @@
 from flask import Flask, render_template, url_for, request, redirect
+
 from flask_sqlalchemy import SQLAlchemy
 from datetime import datetime
 
@@ -27,8 +28,13 @@ class Student(db.Model):
 with app.app_context():
     db.create_all()
 
+class Session():
+    def open_session(app):
+        return "hello world"
+
 @app.route('/home', methods = ['GET', 'POST'])
 def home():
+    
     students = Student.query.all()
     return render_template('01_students_index.html', students=students)
 
