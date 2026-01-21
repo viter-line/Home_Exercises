@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <title>Users</title>
+    <link rel="stylesheet" href="../static/style.css">
+    <!--<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<div class="wrapper">
+    <!-- start header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-inner">
+                <div class="logo"><h3>Test For You</h3></div>
+                <nav>
+                    <ul>
+                        <li class="active"><a href="#">Users</a></li>
+                        <li><a href="#">Courses</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="content">
+        <div class="container">
+            <div class="top-bar">
+                <div class="tb-left">
+                    <a href="#" class="add-btn btn red">
+                        <img src="../static/arrow-left.svg" alt="">
+                    </a>
+                </div>
+
+                <h2>Change User</h2>
+
+                <div class="tb-right">
+                    <div class="btn-2">Changes saved successfully</div>
+                </div>
+            </div>
+
+            <div class="main-form">
+                <form action="">
+                    <label class="form-item">
+                        <span class="cap"><span>*</span>Name</span>
+                        <input type="text" placeholder="" value="Caron" readonly class="input" required>
+                    </label>
+                    <label class="form-item">
+                        <span class="cap"><span>*</span>E-mail</span>
+                        <input type="email" placeholder="" value="e-mail@email.com" class="input" required>
+                    </label>
+                    <label class="form-item">
+                        <span class="cap">Phone</span>
+                        <input type="tel" placeholder="" value="+1111111111111" class="input">
+                    </label>
+                    <label class="form-item">
+                        <span class="cap">Mobile Phone</span>
+                        <input type="tel" placeholder="" value="+1111111111111" class="input">
+                    </label>
+
+                    <div class="form-item">
+                        <span class="cap">Status</span>
+                        <div class="form-select">
+                            <select>
+                                <option value="Inactive">Inactive</option>
+                                <option value="Active">Active</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-item form-courses">
+                        <span class="cap">Courses</span>
+                        <div class="form-select">
+                            <select>
+                                <option value="Inactive">Python-base</option>
+                                <option value="Active">Html</option>
+                            </select>
+                        </div>
+                        <div class="add-btn btn green">
+                            <img src="../static/plus.svg" alt="">
+                        </div>
+
+                        <div class="form-courses-list">
+                            <div class="item">
+                                <span>Python-Database</span>
+                                <div class="remove-btn-2">×</div>
+                            </div>
+                            <div class="item">
+                                <span>HTML</span>
+                                <div class="remove-btn-2">×</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn form-btn green">Save</button>
+                </form>
+            </div>
+        </div>
+    </main>
+</div>
+
+</body>
+</html>
