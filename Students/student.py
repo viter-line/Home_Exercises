@@ -18,7 +18,7 @@ class People(db.Model):
     name = db.Column(db.String(80), nullable=False)
     email = db.Column(db.String(80), nullable=False)
     phone = db.Column(db.String(80), nullable=False)
-    mobile_phone = db.Column(db.String(80), nullable=False)
+    course = db.Column(db.String(80), nullable=False)
     status = db.Column(db.String(80), nullable=False)
 
 with app.app_context():
@@ -33,7 +33,8 @@ def home():
 
 @app.route('/course')
 def courses():
-    return render_template("courses.html")
+    people = People.query.all()
+    return render_template("courses.html", people=people)
 
 
 @app.route('/create_user', methods = ['GET', 'POST'])
@@ -42,7 +43,7 @@ def create_user():
         name = request.form['name']
         email = request.form['E-mail']
         phone = request.form['Phone']
-        mobile_phone = request.form['Mobile_Phone']
+        course = request.form['course']
         status = request.form['status']
 
         student = People()
@@ -50,7 +51,7 @@ def create_user():
         student.name = name
         student.email = email
         student.phone = phone
-        student.mobile_phone = mobile_phone
+        student.course = course
         student.status = status
 
         db.session.add(student)
@@ -59,25 +60,36 @@ def create_user():
     return render_template("create_user.html")
 
 
-# @app.route('/change_user/<int:id>', methods = ['GET', 'POST'])
-# def change_user(id):
-#     Student.first_name = request.form['first_name']
-#     Student.last_name = request.form['las_name']
-#     Student.team_numb = request.form['team_numb']
-    
-#     db.session.update(s)
-#     db.session.commit()
-#     return redirect(url_for('home'))
+@app.route('/change_user/<int:id>', methods = ['GET', 'POST'])
+def change_user(id):
+
+    student = People.query.get(id)
+
+    if request.method == 'POST':
+        
+        student.name = request.form['name']
+        student.email = request.form['E-mail']
+        student.phone = request.form['Phone']
+        student.course = request.form['course']
+        student.status = request.form['status']
+
+        db.session.commit()
+        return redirect(url_for('home'))
+    return render_template("create_user.html", student = student)
 
 
 
+@app.route('/delete_user/<int:id>', methods = ['GET'])
+def delete_user(id):
+    student = People.query.get(id)
+    db.session.delete(student)
+    db.session.commit()
+    return redirect(url_for('home'))
 
-# @app.route('/delete_student/<int:id>', methods = ['GET'])
-# def delete_student(id):
-#     s = Student.query.get(id)
-#     db.session.delete(s)
-#     db.session.commit()
-#     return redirect(url_for('home'))
+# @app.route('/find_user/<int:id>', methods = ['GET'])
+# def find_user(id):
+#     student = People.query.get(id)
+#     return render_template("index.html", people=[student])
 
 if __name__ == '__main__':
     app.run(debug=True)

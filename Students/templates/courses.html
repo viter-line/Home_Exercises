@@ -15,7 +15,7 @@
     <header class="header">
         <div class="container">
             <div class="header-inner">
-                <div class="logo"><h3>Test For You</h3></div>
+                <div class="logo"><h3>Let`s practice!</h3></div>
                 <nav>
                     <ul>
                         <li></li><a href="{{ url_for('home') }}">Users</a></li>
@@ -31,13 +31,13 @@
             <div class="top-bar">
                 <div class="tb-left">
                     <a href="#" class="add-btn btn red">
-                        <img src="../static/plus.svg" alt="">
+                        <img src="/static/plus.svg" alt="">
                     </a>
                     <div class="search-form">
                         <form action="">
                             <input type="search" placeholder="Search" class="search-input input">
                             <button class="search-btn btn green">
-                                <img src="../static/search.svg" alt="">
+                                <img src="/static/search.svg" alt="">
                             </button>
                         </form>
                     </div>
@@ -61,45 +61,29 @@
                     <thead>
                         <tr>
                             <th>Courses</th>
+                            <th>Name</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
                     </thead>
                     <tbody>
+                        {% for s in people %}
                         <tr class="user">
-                            <td>Courses</td>
-                            <td>
-                                <div class="user-active">Active</div>
-                            </td>
+                            <td> {{ s.course }} </td>
+                            <td> {{ s.name }} </td>
+                            <td> {{ s.status }} </td>
                             <td>
                                 <div class="user-action">
-                                    <a href="#" class="edit-btn btn green small">
-                                        <img src="../static/feather.svg" alt="">
+                                    <a href="{{ url_for('change_user', id = s.id) }}" class="edit-btn btn green small">
+                                        <img src="/static/feather.svg" alt="">
                                     </a>
-                                    <a href="#" class="remove-btn btn red small">
-                                        <img src="../static/basket.svg" alt="">
+                                    <a href="{{ url_for('delete_user', id = s.id) }}" class="remove-btn btn red small">
+                                        <img src="/static/basket.svg" alt="">
                                     </a>
                                 </div>
                             </td>
                         </tr>
-
-                        <tr class="user">
-                            <td>Courses</td>
-                            <td>
-                                <div class="user-inactive">Inactive</div>
-                            </td>
-                            <td>
-                                <div class="user-action">
-                                    <a href="#" class="edit-btn btn green small">
-                                        <img src="../static/feather.svg" alt="">
-                                    </a>
-                                    <a href="#" class="remove-btn btn red small">
-                                        <img src="../static/basket.svg" alt="">
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
@@ -107,7 +91,7 @@
             <ul class="pagination">
                 <li class="prev disabled">
                     <a href="#" class="btn green small">
-                        <img src="../static/arrow-left.svg" alt="">
+                        <img src="/static/arrow-left.svg" alt="">
                     </a>
                 </li>
                 <li class="active">1</li>
@@ -117,7 +101,7 @@
                 <li><a href="#">5</a></li>
                 <li class="next">
                     <a href="#" class="btn green small">
-                        <img src="../static/arrow-right.svg" alt="">
+                        <img src="/static/arrow-right.svg" alt="">
                     </a>
                 </li>
             </ul>
