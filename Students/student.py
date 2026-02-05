@@ -60,26 +60,22 @@ def create_user():
     return render_template("create_user.html")
 
 
-@app.route('/change_user/<int:id>', methods = ['GET', 'POST'])
+@app.route('/change_user/<int:id>', methods = ['GET','POST'])
 def change_user(id):
-
-    student = People.query.get(id)
-
     if request.method == 'POST':
-        
+        student = People.query.get(id)        
         student.name = request.form['name']
         student.email = request.form['E-mail']
         student.phone = request.form['Phone']
         student.course = request.form['course']
         student.status = request.form['status']
-
         db.session.commit()
         return redirect(url_for('home'))
-    return render_template("create_user.html", student = student)
+    return render_template("create_user.html", student = People)
 
 
 
-@app.route('/delete_user/<int:id>', methods = ['GET'])
+@app.route('/delete_user/<int:id>', methods = ['GET','DELETE'])
 def delete_user(id):
     student = People.query.get(id)
     db.session.delete(student)
