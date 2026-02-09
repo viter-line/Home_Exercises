@@ -2,76 +2,73 @@
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
-    <title>Users</title>
+    <title>Create User</title>
     <link rel="stylesheet" href="/static/style.css">
-    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
-    <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
 </head>
 <body>
 
 <div class="wrapper">
-    <!-- start header -->
-    <header class="header">
-        <div class="container">
-            <div class="header-inner">
-                <div class="logo" href="#"><h3>Let`s practice!</h3></div>
-                <nav>
-                    <ul>
-                        <li><a href="{{ url_for('student') }}">Users</a></li>
-                        <li><a href="{{ url_for('courses') }}">Courses</a></li>
-                    </ul>
-                </nav>
+<header class="header">
+    <div class="container">
+        <div class="header-inner">
+            <div class="logo"><h3>Let`s practice!</h3></div>
+            <nav>
+                <ul>
+                    <li><a href="users.html">Users</a></li>
+                    <li><a href="courses.html">Courses</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</header>
+
+<main class="content">
+<div class="container">
+
+<h2>Create User</h2>
+
+<div class="main-form">
+    <form id="create-user-form">
+        <label class="form-item">
+            <span class="cap"><span>*</span>Full Name</span>
+            <input type="text" id="name" class="input" required>
+        </label>
+
+        <label class="form-item">
+            <span class="cap"><span>*</span>E-mail</span>
+            <input type="email" id="email" class="input" required>
+        </label>
+
+        <label class="form-item">
+            <span class="cap">Phone</span>
+            <input type="number" id="phone" class="input">
+        </label>
+
+        <label class="form-item">
+            <span class="cap">Course</span>
+            <input type="text" id="course" class="input">
+        </label>
+
+        <div class="form-item">
+            <span class="cap">Status</span>
+            <div class="form-select">
+                <select id="status">
+                    <option value="Inactive">Inactive</option>
+                    <option value="Active">Active</option>
+                </select>
             </div>
         </div>
-    </header>
 
-    <main class="content">
-        <div class="container">
-            <div class="top-bar">
-                <!-- <div class="tb-left">
-                    <a href="#" class="add-btn btn red">
-                        <img src="/static/style.css/arrow-left.svg" alt="">
-                    </a>
-                </div> -->
-                <h2>Create User</h2>
-            </div>
-
-            <div class="main-form">
-                <form action="" method="POST">
-                    <label class="form-item">
-                        <span class="cap"><span>*</span>Full Name</span>
-                        <input type="text" name="name" placeholder="Full Name" class="input" required>
-                    </label>
-                    <label class="form-item">
-                        <span class="cap"><span>*</span>E-mail</span>
-                        <input type="email" name="E-mail" placeholder="E-mail" class="input" required>
-                    </label>
-                    <label class="form-item">
-                        <span class="cap">Phone</span>
-                        <input type="number" name="Phone" placeholder="Phone" class="input">
-                    </label>
-                    <label class="form-item">
-                        <span class="cap">Course</span>
-                        <input type="text" name="course" placeholder="Course" class="input">
-                    </label>
-
-                    <div class="form-item">
-                        <span class="cap">Status</span>
-                        <div class="form-select">
-                            <select name="status">
-                                <option value="Inactive">Inactive</option>
-                                <option value="Active">Active</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <button type="submit" class="btn form-btn green" href="{{ url_for('home') }}">Create</button>
-                </form>
-            </div>
-        </div>
-    </main>
+        <button type="submit" class="btn form-btn green">
+            Create
+        </button>
+    </form>
 </div>
 
+</div>
+</main>
+</div>
+
+<script src="/static/createUser.js"></script>
 </body>
 </html>
