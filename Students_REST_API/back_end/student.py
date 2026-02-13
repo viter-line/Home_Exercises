@@ -1,7 +1,11 @@
 from flask import Flask, request, jsonify
 import mysql.connector
 
+from flask_cors import CORS 
+
 app = Flask(__name__)
+
+CORS(app, resources={r"/api/*": {"origins": "*"}})
 
 db = mysql.connector.connect(
     user = 'support',
@@ -10,7 +14,7 @@ db = mysql.connector.connect(
     database = 'students_db'
 )
 
-@app.route('/', methods=['GET'])
+@app.route('/api', methods=['GET'])
 def home():
 
     cursor = db.cursor(dictionary=True)
@@ -20,7 +24,7 @@ def home():
     cursor.close()
     return jsonify(data)
 
-@app.route('/student', methods=['GET'])
+@app.route('/api/student', methods=['GET'])
 def student():
     
     cursor = db.cursor(dictionary=True)
@@ -30,7 +34,7 @@ def student():
     cursor.close()
     return jsonify(data)
 
-@app.route('/course', methods=['GET'])
+@app.route('/api/course', methods=['GET'])
 def course():
 
     cursor = db.cursor(dictionary=True)
@@ -40,7 +44,7 @@ def course():
     cursor.close()
     return jsonify(data)
 
-@app.route("/create_user", methods=["POST"])
+@app.route("/api/create_user", methods=["POST"])
 def create_user():
 
     data = request.get_json()
@@ -57,7 +61,7 @@ def create_user():
     return jsonify({"message":"user created!"}), 200
 
 
-@app.route('/student/delete/<int:id>', methods = ['DELETE'])
+@app.route('/api/student/delete/<int:id>', methods = ['DELETE'])
 def student_delete(id):
 
     cursor = db.cursor()
@@ -67,7 +71,7 @@ def student_delete(id):
     cursor.close()
     return jsonify({"message":"user deleted!"}), 200
 
-@app.route('/course/delete/<int:id>', methods = ['DELETE'])
+@app.route('/api/course/delete/<int:id>', methods = ['DELETE'])
 def course_delete(id):
 
     cursor = db.cursor()
@@ -78,7 +82,7 @@ def course_delete(id):
     return jsonify({"message":"course deleted!"}), 200
     
 
-@app.route('/student/edit/<int:id>', methods=["PUT"])
+@app.route('/api/student/edit/<int:id>', methods=["PUT"])
 def edit_student(id):
 
     data = request.get_json()
@@ -98,7 +102,7 @@ def edit_student(id):
     cursor.close()
     return jsonify({"message": "student updated!"}), 200
 
-@app.route('/course/edit/<int:id>', methods=["PUT"])
+@app.route('/api/course/edit/<int:id>', methods=["PUT"])
 def edit_course(id):
 
     data = request.get_json()
