@@ -1,155 +1,128 @@
 from fastapi import FastAPI
-from pydantic import BaseModel
+from pydantic import BaseModel 
+import mysql.connector
+
+from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-class people(BaseModel):
-    id = int 
-    name = str
-    email = str
-    phone = str
-    course = str
-    status = str
+# CORS
+# CORS
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
+class Unit(BaseModel):
+    name: str
+    email: str
+    phone: int
+    course: str
+    status: str
 
-@app.get("/")
-def all_user():
-    return {"Hello": "World"}
+# DB connect
+db = mysql.connector.connect(
+    user = 'support',
+    password = 'password123',
+    host = 'localhost',
+    database = 'students_db'
+)
 
+@app.get("/api")
+async def home():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT * FROM people;")
+    data = cursor.fetchall()
+    cursor.close()
+    return data
 
-@app.get("/students")
-def students(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+@app.get("/api/students")
+async def students():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT id, name, email, phone FROM people;")
+    data = cursor.fetchall()
+    cursor.close()
+    return data
 
+@app.get("/api/courses")
+async def courses():
+    cursor = db.cursor(dictionary=True)
+    cursor.execute("SELECT id, course, name, status FROM people;")
+    data = cursor.fetchall()
+    cursor.close()
+    return data
 
-@app.get("/courses")
-def update_item(item_id: int, item: Item):
-    return {"item_name": item.name, "item_id": item_id}
+@app.post("/api/create_user")
+async def create_user(user: Unit):
+    cursor = db.cursor()
+    cursor.execute(
+        "INSERT INTO people (name, email, phone, course, status) VALUES (%s, %s, %s, %s, %s)",
+        (user.name, user.email, user.phone, user.course, user.status)
+    )
+    db.commit()
+    cursor.close()
+    return {"message": "user created!"}
 
-# db = SQLModel.connector.connect(
-#     user = 'support',
-#     password = 'password123',
-#     host = 'localhost',
-#     database = 'students_db'
-# )
+@app.delete("/api/students/delete/{id}")
+async def students_delete(id):
+    cursor = db.cursor()
+    query = " DELETE FROM people WHERE id=%s "
+    cursor.execute(query, (id,))
+    db.commit()
+    cursor.close()
+    return 'user deleted'
 
-# with app.app_context():
-#     db.create_all()
+@app.delete("/api/courses/delete/{id}")
+async def courses_delete(id: int):
+    cursor = db.cursor()
+    query = " DELETE FROM people WHERE id=%s "
+    cursor.execute(query, (id,))
+    db.commit()
+    cursor.close()
+    return 'courses deleted'
 
+@app.put("/api/students_edit/{id}")
+async def edit_student(id: int, user: Unit):
+    cursor = db.cursor()
+    cursor.execute(
+        "UPDATE people SET name=%s, email=%s, phone=%s, course=%s, status=%s WHERE id=%s",
+        (user.name, user.email, user.phone, user.course, user.status, id)
+    )
+    db.commit()
+    cursor.close()
+    return {"message": "student updated"}
 
+@app.put("/api/courses_edit/{id}")
+async def edit_courses(id: int, user: Unit):
+    cursor = db.cursor()
+    cursor.execute(
+        "UPDATE people SET name=%s, course=%s, status=%s WHERE id=%s",
+        (user.name, user.course, user.status, id)
+    )
+    db.commit()
+    cursor.close()
+    return {"message": "courses updated"}
 
-# from fastapi import CORS 
+@app.patch("/api/students_edit/{id}")
+async def edit1_student(id: int, user: Unit):
+    cursor = db.cursor()
+    cursor.execute(
+        "UPDATE people SET name=%s, email=%s, phone=%s, course=%s, status=%s WHERE id=%s",
+        (user.name, user.email, user.phone, user.course, user.status, id)
+    )
+    db.commit()
+    cursor.close()
+    return {"message": "student updated"}
 
-# CORS(app, resources={r"/api/*": {"origins": "*"}})
-
-
-# @app.get('/api')
-# def home():
-
-#     cursor = db.cursor(dictionary=True)
-#     cursor.execute("SELECT * FROM people;")
-#     data = cursor.fetchall()
-#     print(data)
-#     cursor.close()
-#     return jsonify(data)
-
-# @app.route('/api/student', methods=['GET'])
-# def student():
-    
-#     cursor = db.cursor(dictionary=True)
-#     cursor.execute("SELECT name, email, phone FROM people;")
-#     data = cursor.fetchall()
-#     print(data)
-#     cursor.close()
-#     return jsonify(data)
-
-# @app.route('/api/course', methods=['GET'])
-# def course():
-
-#     cursor = db.cursor(dictionary=True)
-#     cursor.execute("SELECT course, name, status FROM people;")
-#     data = cursor.fetchall()
-#     print(data)
-#     cursor.close()
-#     return jsonify(data)
-
-# @app.route("/api/create_user", methods=["POST"])
-# def create_user():
-
-#     data = request.get_json()
-#     name = data.get('name')
-#     email = data.get('email')
-#     phone = data.get('phone')
-#     course = data.get('course')
-#     status = data.get('status')
-
-#     cursor = db.cursor()
-#     sql_query = "INSERT INTO people (name, email, phone, course, status) VALUES (%s, %s, %s, %s, %s)"
-#     cursor.execute(sql_query, (name, email, phone, course, status))
-#     db.commit()
-#     return jsonify({"message":"user created!"}), 200
-
-
-# @app.route('/api/student/delete/<int:id>', methods = ['DELETE'])
-# def student_delete(id):
-
-#     cursor = db.cursor()
-#     query = " DELETE FROM people WHERE id=%s "
-#     cursor.execute(query, (id,))
-#     db.commit()
-#     cursor.close()
-#     return jsonify({"message":"user deleted!"}), 200
-
-# @app.route('/api/course/delete/<int:id>', methods = ['DELETE'])
-# def course_delete(id):
-
-#     cursor = db.cursor()
-#     query = " DELETE FROM people WHERE id=%s "
-#     cursor.execute(query, (id,))
-#     db.commit()
-#     cursor.close()
-#     return jsonify({"message":"course deleted!"}), 200
-    
-
-# @app.route('/api/student/edit/<int:id>', methods=["PUT"])
-# def edit_student(id):
-
-#     data = request.get_json()
-#     name = data['name']
-#     email = data['email']
-#     phone = data['phone']
-#     course = data['course']
-#     status = data['status']
-
-#     cursor = db.cursor(dictionary=True)
-#     query = " UPDATE people SET name=%s, email=%s, phone=%s, course=%s, status=%s WHERE id=%s; "
-#     cursor.execute(
-#         query, 
-#         (name, email, phone, course, status, id)
-#     )
-#     db.commit()
-#     cursor.close()
-#     return jsonify({"message": "student updated!"}), 200
-
-# @app.route('/api/course/edit/<int:id>', methods=["PUT"])
-# def edit_course(id):
-
-#     data = request.get_json()
-#     name = data['name']
-#     email = data['email']
-#     phone = data['phone']
-#     course = data['course']
-#     status = data['status']
-
-#     cursor = db.cursor(dictionary=True)
-#     query = " UPDATE people SET name=%s, email=%s, phone=%s, course=%s, status=%s WHERE id=%s; "
-#     cursor.execute(
-#         query, 
-#         (name, email, phone, course, status, id)
-#     )
-#     db.commit()
-#     cursor.close()
-#     return jsonify({"message": "course updated!"}), 200
-
-# if __name__ == '__main__':
-#     app.run(debug=True)
+@app.patch("/api/courses_edit/{id}")
+async def edit1_courses(id: int, user: Unit):
+    cursor = db.cursor()
+    cursor.execute(
+        "UPDATE people SET name=%s, course=%s, status=%s WHERE id=%s",
+        (user.name, user.course, user.status, id)
+    )
+    db.commit()
+    cursor.close()
+    return {"message": "courses updated"}
